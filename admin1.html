@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expanded Admin Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .dashboard-container {
+      width: 80%;
+      margin: 20px auto;
+    }
+    section {
+      margin: 20px 0;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #007bff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    table th {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn {
+      padding: 5px 10px;
+      margin: 2px;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .btn-view { background-color: #28a745; color: white; }
+    .btn-edit { background-color: #ffc107; color: black; }
+    .btn-delete { background-color: #dc3545; color: white; }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="date"], input[type="tel"], input[type="email"], input[type="number"], select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        width: 95%;
+      }
+      nav ul li {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Admin Dashboard</h1>
+      <nav>
+        <ul>
+          <li><a href="#employees" class="nav-link" data-target="employees">Employee List</a></li>
+          <li><a href="#add-employee" class="nav-link" data-target="add-employee">Add Employee</a></li>
+          <li><a href="#view-employee" class="nav-link" data-target="view-employee">View Employee</a></li>
+          <li><a href="#logout" class="nav-link">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+    <section id="employees">
+      <h2>Employee List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Employment Code</th>
+            <th>Name</th>
+            <th>Company Email</th>
+            <th>Manager Name</th>
+            <th>Current Project</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="employee-table-body">
+          <!-- Employee rows will be dynamically populated here -->
+          <tr>
+            <td>100001</td>
+            <td>John Doe</td>
+            <td>johndoe@company.com</td>
+            <td>Jane Smith</td>
+            <td>Project Alpha</td>
+            <td><button>View</button></td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr></tr>
+            <td>100002</td>
+            <td>Deepika Singh</td>
+            <td>deepikasingh@company.com</td>
+            <td>Jane Smith</td>
+            <td>Project Alpha</td>
+            <td><button>View</button></td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr></tr>
+            <td>100003</td>
+            <td>Pravalika Sri</td>
+            <td>Pravalikasri@company.com</td>
+            <td>R. Soumya</td>
+            <td>App Development</td>
+            <td><button>View</button></td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr></tr>
+            <td>100004</td>
+            <td>K.Dinesh</td>
+            <td>kdinesh@company.com</td>
+            <td>M. Kiran</td>
+            <td>Web Development</td>
+            <td><button>View</button></td>
+            <td><button>Edit</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section id="add-employee">
+      <h2>Add New Employee</h2>
+      <form id="employee-form">
+        <h3>Personal Details</h3>
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" required>
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="address">Current Address</label>
+          <textarea id="address" name="address" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile</label>
+          <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+        </div>
+        
+        <h3>Professional Details</h3>
+        <div class="form-group">
+          <label for="employment-code">Employment Code</label>
+          <input type="text" id="employment-code" name="employment-code" required>
+        </div>
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" name="department" required>
+        </div>
+        <div class="form-group">
+          <label for="position">Position</label>
+          <input type="text" id="position" name="position" required>
+        </div>
+        <div class="form-group">
+          <label for="join-date">Join Date</label>
+          <input type="date" id="join-date" name="join-date" required>
+        </div>
+        <div class="form-group">
+          <label for="manager">Manager</label>
+          <input type="text" id="manager" name="manager" required>
+        </div>
+        
+        <h3>Financial Details</h3>
+        <div class="form-group">
+          <label for="salary">Salary</label>
+          <input type="number" id="salary" name="salary" required>
+        </div>
+        <div class="form-group">
+          <label for="bank-account">Bank Account Number</label>
+          <input type="text" id="bank-account" name="bank-account" required>
+        </div>
+        <div class="form-group">
+          <label for="tax-id">Tax ID</label>
+          <input type="text" id="tax-id" name="tax-id" required>
+        </div>
+        
+        <h3>Project Details</h3>
+        <div class="form-group">
+          <label for="current-project">Current Project</label>
+          <input type="text" id="current-project" name="current-project" required>
+        </div>
+        <div class="form-group">
+          <label for="project-role">Project Role</label>
+          <input type="text" id="project-role" name="project-role" required>
+        </div>
+        <div class="form-group">
+          <label for="project-start-date">Project Start Date</label>
+          <input type="date" id="project-start-date" name="project-start-date" required>
+        </div>
+        
+        <button type="submit">Add Employee</button>
+      </form>
+    </section>
+    
+    <section id="view-employee" style="display: none;">
+      <h2>Employee Details</h2>
+      <div id="employee-details">
+        <!-- Employee details will be dynamically populated here -->
+      </div>
+    </section>
+      
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const employeeForm = document.getElementById('employee-form');
+      const employeeTableBody = document.getElementById('employee-table-body');
+      const viewSection = document.getElementById('view-employee');
+      const employeeDetails = document.getElementById('employee-details');
+      const sections = document.querySelectorAll('section');
+  
+      let employees = [];
+  
+      // Function to show a specific section and hide others
+      function showSection(target) {
+        sections.forEach(section => {
+          section.style.display = section.id === target ? 'block' : 'none';
+        });
+      }
+  
+      // Add Employee Functionality
+      employeeForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        const newEmployee = {
+          code: employeeForm['employment-code'].value,
+          name: employeeForm['full-name'].value,
+          email: `${employeeForm['full-name'].value.toLowerCase().replace(' ', '.')}@company.com`,
+          manager: employeeForm['manager'].value,
+          project: employeeForm['current-project'].value,
+          dob: employeeForm['dob'].value,
+          gender: employeeForm['gender'].value,
+          address: employeeForm['address'].value,
+          mobile: employeeForm['mobile'].value,
+          department: employeeForm['department'].value,
+          position: employeeForm['position'].value,
+          joinDate: employeeForm['join-date'].value,
+          salary: employeeForm['salary'].value,
+          bankAccount: employeeForm['bank-account'].value,
+          taxId: employeeForm['tax-id'].value,
+          projectRole: employeeForm['project-role'].value,
+          projectStartDate: employeeForm['project-start-date'].value,
+        };
+  
+        employees.push(newEmployee);
+        updateEmployeeTable();
+        employeeForm.reset();
+      });
+  
+      // Update Employee Table
+      function updateEmployeeTable() {
+        employeeTableBody.innerHTML = '';
+        employees.forEach((employee, index) => {
+          employeeTableBody.innerHTML += `
+            <tr>
+              <td>${employee.code}</td>
+              <td>${employee.name}</td>
+              <td>${employee.email}</td>
+              <td>${employee.manager}</td>
+              <td>${employee.project}</td>
+              <td>
+                <button class="btn btn-view" data-index="${index}">View</button>
+                <button class="btn btn-edit">Edit</button>
+                <button class="btn btn-delete" data-index="${index}">Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+  
+        attachViewButtons();
+        attachDeleteButtons();
+      }
+  
+      // Attach View Button Functionality
+      function attachViewButtons() {
+        const viewButtons = document.querySelectorAll('.btn-view');
+        viewButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const index = button.getAttribute('data-index');
+            const employee = employees[index];
+  
+            if (employee) {
+              employeeDetails.innerHTML = `
+                <h3>Personal Details</h3>
+                <p><strong>Name:</strong> ${employee.name}</p>
+                <p><strong>Date of Birth:</strong> ${employee.dob}</p>
+                <p><strong>Gender:</strong> ${employee.gender}</p>
+                <p><strong>Address:</strong> ${employee.address}</p>
+                <p><strong>Mobile:</strong> ${employee.mobile}</p>
+  
+                <h3>Professional Details</h3>
+                <p><strong>Employment Code:</strong> ${employee.code}</p>
+                <p><strong>Department:</strong> ${employee.department}</p>
+                <p><strong>Position:</strong> ${employee.position}</p>
+                <p><strong>Join Date:</strong> ${employee.joinDate}</p>
+                <p><strong>Manager:</strong> ${employee.manager}</p>
+  
+                <h3>Financial Details</h3>
+                <p><strong>Salary:</strong> $${employee.salary}</p>
+                <p><strong>Bank Account:</strong> **** **** **** ${employee.bankAccount.slice(-4)}</p>
+                <p><strong>Tax ID:</strong> ${employee.taxId}</p>
+  
+                <h3>Project Details</h3>
+                <p><strong>Current Project:</strong> ${employee.project}</p>
+                <p><strong>Project Role:</strong> ${employee.projectRole}</p>
+                <p><strong>Project Start Date:</strong> ${employee.projectStartDate}</p>
+              `;
+              showSection('view-employee'); // Show the view employee section
+            }
+          });
+        });
+      }
+  
+      // Attach Delete Button Functionality
+      function attachDeleteButtons() {
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const index = button.getAttribute('data-index');
+            employees.splice(index, 1);
+            updateEmployeeTable();
+          });
+        });
+      }
+  
+      // Navigation links functionality
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+          const target = link.getAttribute('data-target');
+          showSection(target);
+          event.preventDefault();
+        });
+      });
+    });
+  </script>
+  
+</body>
+</html>
+
+
